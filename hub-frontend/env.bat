@@ -1,0 +1,1 @@
+SET IMAGE_NAME="neurodiff-hub-frontend"

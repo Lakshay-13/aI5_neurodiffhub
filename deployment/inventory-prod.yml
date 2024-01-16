@@ -1,0 +1,23 @@
+all:
+    vars:
+      ansible_user: sa_101274744188256150293
+      ansible_ssh_private_key_file: "../../secrets/ssh-key-neurodiff-ansible"
+      gcp_service_account_file: "../../secrets/neurodiff-ansible.json"
+      gcp_service_account_email: "ansible@neurodiff.iam.gserviceaccount.com"
+      gcp_auth_kind: "serviceaccount"
+      gcp_scopes: "https://www.googleapis.com/auth/compute"
+      gcp_project: "neurodiff"
+      gcp_region: "us-central1"
+      gcp_zone: "us-central1-a"
+      docker_network_name: "appnetwork"
+      persistent_disk_name: "prod-disk"
+      persistent_disk_size: 50
+      machine_instance_name: "prod"
+      machine_type: "n2-standard-2"
+      machine_disk_size: 30
+      sub_domain: "www"
+
+    children:
+        appserver:
+            hosts:
+                35.193.226.62:

@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+    neurodiffdb-client:
+        image: amacneil/dbmate
+        container_name: neurodiffdb-client
+        entrypoint: /bin/sh
+        depends_on:
+            - neurodiffhubdb-server
+        volumes:
+            - ./db:/db
+            - ./test:/test
+        environment:
+            DATABASE_URL: "postgres://neurodiffhub:diffeq@neurodiffhubdb-server:5432/neurodiffhubdb?sslmode=disable"
+            TEST_DATABASE_URL: "postgres://neurodiffhub:diffeq@neurodiffhubdb-server:5432/neurodiffhubdb_test?sslmode=disable"
+    neurodiffhubdb-server:
+        image: postgres:13.13
+        container_name: neurodiffhubdb-server
+        volumes:
+            - ./docker-volumes/postgres:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: neurodiffhub
+            POSTGRES_PASSWORD: diffeq
+            POSTGRES_DB: neurodiffhubdb
+networks:
+    default:
+        external:
+            name: neurodiffhub
